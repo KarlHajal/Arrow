@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour {
     public float fastEnemyScore;
     public float giantEnemyScore;
     public Text scoreText;
+	public GameObject TheDeathMenu;
 
     //private Vector2 SpawnPosition = new Vector2(0, 4);
     private Vector2 playerPosition;
@@ -43,6 +45,8 @@ public class GameManager : MonoBehaviour {
         {
             KillPlayer();
         }
+		if (playerHP.playerHP <= 0) //TEMPORARY
+			SceneManager.LoadScene (0);
         
         /*
         if (playerKilled && Time.time >= nextRespawn)
@@ -71,7 +75,7 @@ public class GameManager : MonoBehaviour {
     void KillPlayer()
     {
         Instantiate(Poof, new Vector2(playerCharacter.transform.position.x, playerCharacter.transform.position.y - 0.7f), poofRotation); //poof
-        HeldArrow.SetActive(false);        
+        HeldArrow.SetActive(false);      
         playerCharacter.SetActive(false);
         //nextRespawn = Time.time + playerRespawnTime;
         playerKilled = true;
